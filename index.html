@@ -15,293 +15,231 @@
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
 
     <style>
-        :root {
-            --primary: #00d2ff;
-            --secondary: #92fe9d;
-            --accent: #ff00c1;
-            --bg: #05070a;
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --text: #ffffff;
-            --border: rgba(255, 255, 255, 0.1);
-        }
+    :root {
+        --primary: #00d2ff;
+        --secondary: #92fe9d;
+        --accent: #ff00c1;
+        --bg: #05070a;
+        --card-bg: rgba(255, 255, 255, 0.05);
+        --text: #ffffff;
+        --border: rgba(255, 255, 255, 0.1);
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+    }
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        overflow-x: hidden;
+        width: 100%;
+    }
 
-        /* --- Animated Mesh Background --- */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 193, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(146, 254, 157, 0.1) 0%, transparent 50%);
-            z-index: -1;
-            animation: moveBg 15s linear infinite alternate;
-        }
+    /* --- Animated Mesh Background --- */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+            radial-gradient(circle at 10% 20%, rgba(0, 210, 255, 0.2) 0%, transparent 40%),
+            radial-gradient(circle at 90% 80%, rgba(255, 0, 193, 0.2) 0%, transparent 40%),
+            radial-gradient(circle at 50% 50%, rgba(146, 254, 157, 0.1) 0%, transparent 50%);
+        z-index: -1;
+        animation: moveBg 15s linear infinite alternate;
+    }
 
-        @keyframes moveBg {
-            from {
-                transform: scale(1);
-            }
+    @keyframes moveBg {
+        from { transform: scale(1); }
+        to { transform: scale(1.2); }
+    }
 
-            to {
-                transform: scale(1.2);
-            }
-        }
+    /* --- Header --- */
+    header {
+        height: 50vh; /* Reduced height for better mobile viewing */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
 
-        /* --- Colorful Header --- */
-        header {
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
+    header h1 {
+        font-size: clamp(2.2rem, 10vw, 6rem); /* Responsive font scaling */
+        font-weight: 800;
+        background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--primary));
+        background-size: 300% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+        animation: shine 5s linear infinite;
+        filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.4));
+    }
 
-        header h1 {
-            font-size: clamp(2.5rem, 12vw, 6rem);
-            font-weight: 800;
-            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent), var(--primary));
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.1;
-            animation: shine 5s linear infinite;
-            filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.4));
-        }
+    @keyframes shine {
+        to { background-position: 300% center; }
+    }
 
-        @keyframes shine {
-            to {
-                background-position: 300% center;
-            }
-        }
+    header p {
+        font-size: clamp(0.7rem, 2.5vw, 1.2rem);
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 5px 15px;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        letter-spacing: 3px; /* Reduced spacing for mobile */
+        margin-top: 15px;
+        border: 1px solid var(--border);
+    }
 
-        header p {
-            font-size: clamp(0.8rem, 3vw, 1.2rem);
-            color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
-            letter-spacing: 5px;
-            margin-top: 20px;
-            border: 1px solid var(--border);
-        }
+    /* --- Container --- */
+    .container {
+        max-width: 1100px;
+        margin: -40px auto 60px; /* Adjusted margin */
+        padding: 0 15px;
+        display: grid;
+        gap: 30px;
+    }
 
-        /* --- Container --- */
-        .container {
-            max-width: 1100px;
-            margin: -60px auto 100px;
-            padding: 0 20px;
-            display: grid;
-            gap: 40px;
-        }
+    /* --- Cards --- */
+    .card {
+        background: var(--card-bg);
+        backdrop-filter: blur(30px);
+        -webkit-backdrop-filter: blur(30px);
+        border-radius: 25px;
+        padding: clamp(20px, 5vw, 45px);
+        border: 1px solid var(--border);
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+    }
 
-        /* --- Vibrant Cards --- */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(30px);
-            border-radius: 30px;
-            padding: clamp(25px, 6vw, 45px);
-            border: 1px solid var(--border);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
+    .card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+    }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transition: 0.5s;
-        }
+    .card h2 {
+        font-size: clamp(1.2rem, 4vw, 1.8rem);
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--secondary);
+    }
 
-        .card:hover::before {
-            left: 100%;
-        }
+    /* --- Gallery Grid (Crucial for Mobile) --- */
+    .grid-gallery {
+        display: grid;
+        /* Small screens get 2 columns, tablets/desktops get more */
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 12px;
+    }
 
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--primary);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 210, 255, 0.2);
-        }
+    @media (min-width: 600px) {
+        .grid-gallery { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 900px) {
+        .grid-gallery { grid-template-columns: repeat(4, 1fr); }
+    }
 
-        .card h2 {
-            font-size: clamp(1.4rem, 5vw, 1.8rem);
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: var(--secondary);
-            text-shadow: 0 0 10px rgba(146, 254, 157, 0.3);
-        }
+    .img-wrapper {
+        border-radius: 12px;
+        overflow: hidden;
+        aspect-ratio: 1/1;
+        border: 1px solid var(--border);
+        cursor: pointer;
+    }
 
-        /* --- Gallery Grid --- */
-        .grid-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-        }
+    .img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-        .img-wrapper {
-            border-radius: 15px;
-            overflow: hidden;
-            aspect-ratio: 1/1;
-            border: 2px solid var(--border);
-            cursor: pointer;
-            transition: 0.4s;
-        }
+    /* --- Video Box --- */
+    .video-box {
+        border-radius: 15px;
+        overflow: hidden;
+        border: 2px solid var(--border);
+        background: #000;
+        position: relative;
+    }
 
-        .img-wrapper:hover {
-            border-color: var(--accent);
-            transform: rotate(2deg);
-            box-shadow: 0 0 15px var(--accent);
-        }
+    .video-box::after {
+        content: "\f144";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: clamp(2rem, 8vw, 4rem);
+        color: #fff;
+        opacity: 0.8;
+    }
 
-        .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    /* --- Button --- */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        color: #000;
+        padding: 12px 25px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        max-width: 100%;
+    }
 
-        /* --- Video Box Neon --- */
-        .video-box {
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid var(--border);
-            background: #000;
-            cursor: pointer;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    /* --- Modal Responsive --- */
+    .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.95);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        padding: 10px;
+    }
 
-        .video-box:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
-        }
+    .modal.active { display: flex; }
 
-        .video-box::after {
-            content: "\f144";
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem;
-            color: #fff;
-            opacity: 0.9;
-            text-shadow: 0 0 20px var(--primary);
-        }
+    .modal-content {
+        max-width: 100%;
+        max-height: 80vh;
+        object-fit: contain;
+        border: 1px solid var(--primary);
+    }
 
-        /* --- Animated Button --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: #000;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.4s;
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
-        }
+    .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 2.5rem;
+        color: #fff;
+        z-index: 10001;
+    }
 
-        .btn:hover {
-            transform: scale(1.1) rotate(-1deg);
-            box-shadow: 0 15px 30px var(--primary);
-            background: linear-gradient(45deg, var(--secondary), var(--primary));
-        }
-
-        /* --- Modal Animation --- */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.98);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            backdrop-filter: blur(20px);
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal-content {
-            max-width: 100%;
-            max-height: 85vh;
-            border-radius: 20px;
-            border: 2px solid var(--primary);
-            box-shadow: 0 0 50px var(--primary);
-            transform: scale(0.9);
-            animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-
-        @keyframes zoomIn {
-            to {
-                transform: scale(1);
-            }
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 3rem;
-            color: var(--accent);
-            cursor: pointer;
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(to top, rgba(0, 210, 255, 0.05), transparent);
-        }
-    </style>
+    footer {
+        padding: 40px 20px;
+        text-align: center;
+    }
+</style>
 </head>
 
 <body>

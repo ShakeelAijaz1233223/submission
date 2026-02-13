@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonic Pulse | Shakeel Aijaz</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <style>
         :root {
             --primary: #00d2ff;
@@ -21,7 +24,13 @@
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
@@ -33,140 +42,334 @@
         body::before {
             content: "";
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, rgba(255, 0, 193, 0.15) 0%, transparent 40%);
+                radial-gradient(circle at 80% 70%, rgba(255, 0, 193, 0.15) 0%, transparent 40%);
             z-index: -1;
         }
 
-        header { height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        header h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        header {
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
 
-        .container { max-width: 1200px; margin: 20px auto 100px; padding: 0 20px; display: grid; gap: 40px; }
+        header h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-        .card { background: var(--card-bg); backdrop-filter: blur(25px); border-radius: 24px; padding: 30px; border: 1px solid var(--border); }
-        .card h2 { font-size: 1.5rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+        @keyframes buttonPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 210, 255, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(0, 210, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 210, 255, 0);
+            }
+        }
+
+        .btn-git:hover {
+            background: linear-gradient(45deg, var(--accent), var(--primary)) !important;
+            color: #fff !important;
+            letter-spacing: 1px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto 100px;
+            padding: 0 20px;
+            display: grid;
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            padding: 35px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* --- Git Button Style --- */
+        .btn-git {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: #000;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
+            margin-top: 15px;
+        }
+
+        .btn-git:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.4);
+        }
 
         /* --- Gallery --- */
-        .grid-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-        .img-wrapper { border-radius: 12px; overflow: hidden; height: 140px; cursor: pointer; border: 1px solid var(--border); position: relative; }
-        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
-        .img-wrapper:hover img { transform: scale(1.1); }
+        .grid-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .img-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 140px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+
+        .img-wrapper:hover img {
+            transform: scale(1.1);
+        }
 
         /* --- Video Thumbs --- */
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .video-thumb { 
-            position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; 
-            border: 1px solid var(--border); background: #111; height: 200px;
-            display: flex; align-items: center; justify-content: center;
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
-        .video-thumb i { font-size: 3rem; color: var(--primary); transition: 0.3s; z-index: 2; }
-        .video-thumb:hover i { transform: scale(1.2); color: var(--secondary); }
-        .video-thumb::before { content: "Click to Play Demo"; position: absolute; bottom: 20px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+
+        .video-thumb {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: #111;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-thumb i {
+            font-size: 3rem;
+            color: var(--primary);
+            transition: 0.3s;
+            z-index: 2;
+        }
+
+        .video-thumb:hover i {
+            transform: scale(1.2);
+            color: var(--secondary);
+        }
+
+        .video-thumb p {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 15px;
+            border-radius: 10px;
+        }
 
         /* --- Global Modal --- */
         .modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; justify-content: center;
-            align-items: center; z-index: 2000; backdrop-filter: blur(15px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(15px);
         }
-        .modal.active { display: flex; }
-        .modal-content { max-width: 90%; max-height: 80%; border-radius: 15px; box-shadow: 0 0 50px rgba(0,210,255,0.2); }
-        .close-btn { position: absolute; top: 30px; right: 40px; font-size: 2.5rem; color: #fff; cursor: pointer; z-index: 2100; }
 
-        footer { text-align: center; padding: 40px; opacity: 0.6; font-size: 0.9rem; }
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0, 210, 255, 0.2);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 2100;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
+
 <body>
 
-<header>
-    <h1>Sound Project</h1>
-    <p>Project Submission 2026</p>
-</header>
+    <header>
+        <h1>Sound Project</h1>
+        <p>Project Submission 2026</p>
+    </header>
 
-<main class="container">
-    
-    <section class="card">
-        <h2><i class="fas fa-play-circle" style="color: var(--secondary);"></i> Project Demos</h2>
-        <div class="video-grid">
-            <div class="video-thumb" onclick="openVideo('/Recording/admin.mp4')">
-                <i class="fas fa-play"></i>
-                <p style="position: absolute; top: 20px; left: 20px; font-weight: bold;">Admin Dashboard</p>
-            </div>
-            <div class="video-thumb" onclick="openVideo('Recording/user.mp4')">
-                <i class="fas fa-play"></i>
-                <p style="position: absolute; top: 20px; left: 20px; font-weight: bold;">User Website</p>
-            </div>
-        </div>
-    </section>
+    <main class="container">
+        <section class="card"
+            style="text-align: center; position: relative; overflow: hidden; border: 2px solid rgba(0, 210, 255, 0.3);">
 
-    <section class="card">
-        <h2><i class="fas fa-images" style="color: var(--accent);"></i> Screenshot Gallery</h2>
-        <div class="grid-gallery">
-            <script>
-                for(let i=1; i<=24; i++) {
-                    document.write(`
+            <div
+                style="position: absolute; top: -20px; right: -20px; opacity: 0.1; font-size: 5rem; color: var(--primary); transform: rotate(15deg);">
+                <i class="fas fa-signal"></i>
+            </div>
+
+            <h2 style="justify-content: center; text-transform: uppercase; letter-spacing: 2px;">
+                <i class="fab fa-github-alt"
+                    style="color: var(--primary); filter: drop-shadow(0 0 8px var(--primary));"></i>
+                The Sound Codebase
+            </h2>
+
+            <p style="color: #94a3b8; margin-bottom: 25px; font-size: 0.95rem;">
+                Explore the high-fidelity architecture and rhythm of the source code.
+                <span style="color: var(--secondary);">Built with precision & pulse.</span>
+            </p>
+
+            <a href="https://github.com/ShakeelAijaz1233223/Project_Complete.git" target="_blank" class="btn-git"
+                style="position: relative; overflow: hidden; border: none; box-shadow: 0 0 20px rgba(0, 210, 255, 0.4); animation: buttonPulse 2s infinite;">
+                <i class="fas fa-code-branch"></i> ACCESS GIT REPOSITORY
+            </a>
+
+
+        </section>
+
+        <section class="card">
+            <h2><i class="fas fa-play-circle" style="color: var(--secondary);"></i> Project Demos</h2>
+            <div class="video-grid">
+                <div class="video-thumb" onclick="openVideo('/Recording/admin.mp4')">
+                    <i class="fas fa-play"></i>
+                    <p>Admin Dashboard</p>
+                </div>
+                <div class="video-thumb" onclick="openVideo('Recording/user.mp4')">
+                    <i class="fas fa-play"></i>
+                    <p>User Website</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2><i class="fas fa-images" style="color: var(--accent);"></i> Screenshot Gallery</h2>
+            <div class="grid-gallery">
+                <script>
+                    for (let i = 1; i <= 24; i++) {
+                        document.write(`
                         <div class="img-wrapper" onclick="openImage('/Recording/img (${i}).png')">
                             <img src="/Recording/img (${i}).png" alt="UI ${i}" loading="lazy">
                         </div>
                     `);
-                }
-            </script>
-        </div>
-    </section>
+                    }
+                </script>
+            </div>
+        </section>
 
-</main>
+    </main>
 
-<div class="modal" id="videoModal">
-    <span class="close-btn" onclick="closeModals()">&times;</span>
-    <video id="popupVideo" class="modal-content" controls autoplay style="width: 80%; border: 2px solid var(--primary);">
-        <source src="" type="video/mp4">
-    </video>
-</div>
+    <div class="modal" id="videoModal">
+        <span class="close-btn" onclick="closeModals()">&times;</span>
+        <video id="popupVideo" class="modal-content" controls autoplay
+            style="width: 80%; border: 2px solid var(--primary);">
+            <source src="" type="video/mp4">
+        </video>
+    </div>
 
-<div class="modal" id="imageModal">
-    <span class="close-btn" onclick="closeModals()">&times;</span>
-    <img id="popupImg" class="modal-content" src="">
-</div>
+    <div class="modal" id="imageModal">
+        <span class="close-btn" onclick="closeModals()">&times;</span>
+        <img id="popupImg" class="modal-content" src="">
+    </div>
 
-<footer>
-    <p>SHAKEEL AIJAZ &copy; 2026 | Submission Ready</p>
-</footer>
+    <footer>
+        <p>SHAKEEL AIJAZ &copy; 2026 | Submission Ready</p>
+    </footer>
 
-<script>
-    const vModal = document.getElementById('videoModal');
-    const iModal = document.getElementById('imageModal');
-    const pVideo = document.getElementById('popupVideo');
-    const pImg = document.getElementById('popupImg');
+    <script>
+        const vModal = document.getElementById('videoModal');
+        const iModal = document.getElementById('imageModal');
+        const pVideo = document.getElementById('popupVideo');
+        const pImg = document.getElementById('popupImg');
 
-    function openVideo(src) {
-        pVideo.src = src;
-        vModal.classList.add('active');
-        pVideo.play();
-        document.body.style.overflow = 'hidden';
-    }
-
-    function openImage(src) {
-        pImg.src = src;
-        iModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModals() {
-        vModal.classList.remove('active');
-        iModal.classList.remove('active');
-        pVideo.pause();
-        pVideo.src = ""; // Stop video loading
-        document.body.style.overflow = 'auto';
-    }
-
-    // Close on background click
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) {
-            closeModals();
+        function openVideo(src) {
+            pVideo.src = src;
+            vModal.classList.add('active');
+            pVideo.play();
+            document.body.style.overflow = 'hidden';
         }
-    }
-</script>
+
+        function openImage(src) {
+            pImg.src = src;
+            iModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModals() {
+            vModal.classList.remove('active');
+            iModal.classList.remove('active');
+            pVideo.pause();
+            pVideo.src = "";
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function (event) {
+            if (event.target.classList.contains('modal')) {
+                closeModals();
+            }
+        }
+    </script>
 
 </body>
+
 </html>

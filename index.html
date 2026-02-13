@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shakeel Aijaz | Premium Portfolio</title>
+    <title>Sonic Pulse | Shakeel Aijaz</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,13 +21,7 @@
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
@@ -36,223 +30,143 @@
             overflow-x: hidden;
         }
 
-        /* --- Animated Background Canvas --- */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 0, 193, 0.15) 0%, transparent 40%);
+            background: radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, rgba(255, 0, 193, 0.15) 0%, transparent 40%);
             z-index: -1;
         }
 
-        /* --- High-End Hero --- */
-        header {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            background: radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
-        }
+        header { height: 40vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        header h1 { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        header h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
-            font-weight: 800;
-            background: linear-gradient(to right, var(--primary), var(--secondary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 20px rgba(0, 210, 255, 0.3));
-            animation: fadeInScale 0.8s ease-out;
-        }
+        .container { max-width: 1200px; margin: 20px auto 100px; padding: 0 20px; display: grid; gap: 40px; }
 
-        header p {
-            font-size: 1.2rem;
-            color: #94a3b8;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-top: 10px;
-            animation: fadeIn 1.2s ease-in;
-        }
+        .card { background: var(--card-bg); backdrop-filter: blur(25px); border-radius: 24px; padding: 30px; border: 1px solid var(--border); }
+        .card h2 { font-size: 1.5rem; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
 
-        /* --- Content Container --- */
-        .container {
-            max-width: 1200px;
-            margin: -100px auto 100px;
-            padding: 0 20px;
-            display: grid;
-            gap: 40px;
-        }
+        /* --- Gallery --- */
+        .grid-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .img-wrapper { border-radius: 12px; overflow: hidden; height: 140px; cursor: pointer; border: 1px solid var(--border); position: relative; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: 0.4s; }
+        .img-wrapper:hover img { transform: scale(1.1); }
 
-        /* --- Glassmorphic Card Style --- */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 40px;
-            border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            position: relative;
-            overflow: hidden;
+        /* --- Video Thumbs --- */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .video-thumb { 
+            position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; 
+            border: 1px solid var(--border); background: #111; height: 200px;
+            display: flex; align-items: center; justify-content: center;
         }
+        .video-thumb i { font-size: 3rem; color: var(--primary); transition: 0.3s; z-index: 2; }
+        .video-thumb:hover i { transform: scale(1.2); color: var(--secondary); }
+        .video-thumb::before { content: "Click to Play Demo"; position: absolute; bottom: 20px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 210, 255, 0.1);
+        /* --- Global Modal --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; justify-content: center;
+            align-items: center; z-index: 2000; backdrop-filter: blur(15px);
         }
+        .modal.active { display: flex; }
+        .modal-content { max-width: 90%; max-height: 80%; border-radius: 15px; box-shadow: 0 0 50px rgba(0,210,255,0.2); }
+        .close-btn { position: absolute; top: 30px; right: 40px; font-size: 2.5rem; color: #fff; cursor: pointer; z-index: 2100; }
 
-        .card h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        /* --- Premium Neon Button --- */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(45deg, var(--primary), var(--secondary));
-            color: #000;
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
-        }
-
-        .btn:hover {
-            transform: scale(1.05) rotate(-1deg);
-            box-shadow: 0 15px 30px rgba(0, 210, 255, 0.4);
-        }
-
-        /* --- Gallery with Glow --- */
-        .grid-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .img-wrapper {
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .grid-gallery img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .img-wrapper:hover img {
-            transform: scale(1.1);
-        }
-
-        /* --- Professional Video Box --- */
-        .video-box {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
-
-        /* --- Animations --- */
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        footer {
-            text-align: center;
-            padding: 60px 20px;
-            border-top: 1px solid var(--border);
-            background: rgba(0,0,0,0.3);
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            header { height: 60vh; }
-            .container { margin-top: -50px; }
-            .card { padding: 25px; }
-        }
+        footer { text-align: center; padding: 40px; opacity: 0.6; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Shakeel Aijaz</h1>
-    <p>Visual Experience Engineer</p>
+    <h1>Sound Project</h1>
+    <p>Project Submission 2026</p>
 </header>
 
 <main class="container">
     
-    <section class="card" style="text-align: center;">
-        <h2 style="justify-content: center;"><i class="fas fa-terminal" style="color: var(--primary);"></i> The Codebase</h2>
-        <p style="color: #94a3b8; margin-bottom: 30px; font-size: 1.1rem;">
-            Clean architecture meets high performance. Dive into the repository to explore the logic behind the beauty.
-        </p>
-        <a href="#" class="btn">
-            <i class="fab fa-github"></i> EXPLORE GITHUB
-        </a>
+    <section class="card">
+        <h2><i class="fas fa-play-circle" style="color: var(--secondary);"></i> Project Demos</h2>
+        <div class="video-grid">
+            <div class="video-thumb" onclick="openVideo('/Recording/admin.mp4')">
+                <i class="fas fa-play"></i>
+                <p style="position: absolute; top: 20px; left: 20px; font-weight: bold;">Admin Dashboard</p>
+            </div>
+            <div class="video-thumb" onclick="openVideo('Recording/user.mp4')">
+                <i class="fas fa-play"></i>
+                <p style="position: absolute; top: 20px; left: 20px; font-weight: bold;">User Website</p>
+            </div>
+        </div>
     </section>
 
     <section class="card">
-        <h2><i class="fas fa-layer-group" style="color: var(--accent);"></i> Project Snapshots</h2>
+        <h2><i class="fas fa-images" style="color: var(--accent);"></i> Screenshot Gallery</h2>
         <div class="grid-gallery">
-            <div class="img-wrapper">
-                <img src="images/screenshot1.jpg" alt="Design 1" loading="lazy">
-            </div>
-            <div class="img-wrapper">
-                <img src="images/screenshot2.jpg" alt="Design 2" loading="lazy">
-            </div>
-            <div class="img-wrapper">
-                <img src="images/screenshot3.jpg" alt="Design 3" loading="lazy">
-            </div>
-        </div>
-    </section>
-
-    <section class="card">
-        <h2><i class="fas fa-play" style="color: var(--secondary);"></i> Live Presentation</h2>
-        <div class="video-box">
-            <video preload="none" controls poster="images/video-thumb.jpg" style="width: 100%; display: block;">
-                <source src="Recording/user.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </section>
-
-    <section class="card">
-        <h2><i class="fas fa-play" style="color: var(--secondary);"></i> Live Presentation</h2>
-        <div class="video-box">
-            <video preload="none" controls poster="images/video-thumb.jpg" style="width: 100%; display: block;">
-                <source src="Recording/user.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <script>
+                for(let i=1; i<=24; i++) {
+                    document.write(`
+                        <div class="img-wrapper" onclick="openImage('/Recording/img (${i}).png')">
+                            <img src="/Recording/img (${i}).png" alt="UI ${i}" loading="lazy">
+                        </div>
+                    `);
+                }
+            </script>
         </div>
     </section>
 
 </main>
 
+<div class="modal" id="videoModal">
+    <span class="close-btn" onclick="closeModals()">&times;</span>
+    <video id="popupVideo" class="modal-content" controls autoplay style="width: 80%; border: 2px solid var(--primary);">
+        <source src="" type="video/mp4">
+    </video>
+</div>
+
+<div class="modal" id="imageModal">
+    <span class="close-btn" onclick="closeModals()">&times;</span>
+    <img id="popupImg" class="modal-content" src="">
+</div>
+
 <footer>
-    <p style="font-weight: 600; color: var(--primary);">SHAKEEL AIJAZ &copy; 2026</p>
-    <p style="font-size: 0.8rem; color: #475569; margin-top: 5px;">Designed for Excellence • Powered by Speed</p>
+    <p>SHAKEEL AIJAZ &copy; 2026 | Submission Ready</p>
 </footer>
 
+<script>
+    const vModal = document.getElementById('videoModal');
+    const iModal = document.getElementById('imageModal');
+    const pVideo = document.getElementById('popupVideo');
+    const pImg = document.getElementById('popupImg');
+
+    function openVideo(src) {
+        pVideo.src = src;
+        vModal.classList.add('active');
+        pVideo.play();
+        document.body.style.overflow = 'hidden';
+    }
+
+    function openImage(src) {
+        pImg.src = src;
+        iModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModals() {
+        vModal.classList.remove('active');
+        iModal.classList.remove('active');
+        pVideo.pause();
+        pVideo.src = ""; // Stop video loading
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close on background click
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            closeModals();
+        }
+    }
+</script>
+
 </body>
-</html> 
+</html>
